@@ -1,0 +1,40 @@
+{
+  "name": "lnpay/lnpay-php",
+  "description": "LNPay PHP Client Library",
+  "keywords": [
+    "LNPay",
+    "Payment Processing",
+    "API",
+    "client"
+  ],
+  "authors": [
+    {
+      "name": "LNPay and contributors",
+      "homepage": "https://github.com/lnpay/lnpay-php"
+    }
+  ],
+  "support": {
+    "email": "contact@lnpay.co",
+    "issues": "https://github.com/lnpay/lnpay-php/issues",
+    "source": "https://github.com/lnpay/lnpay-php"
+  },
+  "homepage": "https://www.lnpay.co",
+  "license": "MIT",
+  "require": {
+    "php": ">=7.3",
+    "guzzlehttp/guzzle": "^7.3",
+    "ext-curl": "*",
+    "ext-intl": "*",
+    "ext-json": "*",
+    "ext-mbstring": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "LNPay\\": "src/",
+      "LNPay\\Tests\\": "tests/"
+    }
+  }
+}
