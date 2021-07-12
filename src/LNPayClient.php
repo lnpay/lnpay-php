@@ -50,7 +50,6 @@ class LNPayClient
         self::$walletAccessKey = $walletAccessKey;
     }
 
-
     /**
      * @param string $name
      * @return mixed
