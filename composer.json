@@ -33,8 +33,8 @@
   },
   "autoload": {
     "psr-4": {
-      "LNPay\\": "src/",
-      "LNPay\\Tests\\": "tests/"
+      "LNPayClient\\": "src/",
+      "LNPayClient\\Tests\\": "tests/"
     }
   }
 }

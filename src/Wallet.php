@@ -1,6 +1,6 @@
 <?php
 
-namespace LNPay;
+namespace LNPayClient;
 
 /**
  * Class Wallet
