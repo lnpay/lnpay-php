@@ -4,6 +4,12 @@ namespace LNPayClient;
 
 use GuzzleHttp\Client;
 
+use function PHPUnit\Framework\throwException;
+
+/**
+ * Class Request
+ * @package LNPayClient
+ */
 class Request
 {
     /**
@@ -13,14 +19,19 @@ class Request
     protected $headers = [];
 
     /**
+     * @var http response code
+     */
+    protected $status;
+
+    /**
      * Make a GET request to server
      * @param string $uri
      * @param array $query
      * @param float $timeOut
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    protected function get(string $uri, array $query = [], float $timeOut = 2.0): \Psr\Http\Message\ResponseInterface
+    protected function get(string $uri, array $query = [], float $timeOut = 2.0): string
     {
         $client = new Client([
             'base_uri' => LNPayClient::getEndPointUrl(),
@@ -33,22 +44,24 @@ class Request
             $options['query'] = $query;
         }
 
-        return $client->request(
-            'GET',
-            $uri,
-            $options
-        );
+        try {
+            $request = $client->request('GET', $uri, $options);
+            $this->status = $request->getStatusCode();
+        } catch (\GuzzleHttp\Exception\ConnectException $e) {
+            // This is will catch all connection timeouts
+            return 'Connection timeout';
+        }
+
+        return $request->getBody()->getContents();
     }
 
     /**
      * Make a POST request to server
-     *
      * @param string $uri
      * @param array $params
      * @param float $timeOut
      * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Exception
      */
     protected function post(string $uri, array $params = [], float $timeOut = 2.0): string
     {
@@ -63,11 +76,15 @@ class Request
             $options['form_params'] = $params;
         }
 
-        return $client->request(
-            'POST',
-            $uri,
-            $options
-        );
+        try {
+            $request = $client->request('POST', $uri, $options);
+            $this->status = $request->getStatusCode();
+        } catch (\GuzzleHttp\Exception\ConnectException $e) {
+            // This is will catch all connection timeouts
+            return 'Connection timeout';
+        }
+
+        return $request->getBody()->getContents();
     }
 
     /**
@@ -97,4 +114,13 @@ class Request
         $this->headers[$key] = $value;
         return $this;
     }
+
+    /**
+     * @return String
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
 }
