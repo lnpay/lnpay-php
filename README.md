@@ -88,7 +88,7 @@ print_r($response);
 ```
 $response = $lnPayClient->wallet->createInvoice(array(
         "num_satoshis" => "2",
-        "meno" => "Tester",
+        "memo" => "Tester",
     ));
 print_r($response);
 ```
@@ -105,7 +105,7 @@ print_r($response);
 ```
 $response = $lnPayClient->wallet->transfer(array(
         "num_satoshis" => 1,
-        "Memo" => "SateBack",
+        "memo" => "SateBack",
     ));
 print_r($response);
 ```

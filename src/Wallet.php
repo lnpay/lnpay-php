@@ -53,19 +53,6 @@ class Wallet extends Request
     }
 
     /**
-     * List all the wallets
-     * @see https://docs.lnpay.co/api/wallets/list
-     * @return string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function listAll(): string
-    {
-        return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
-            ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
-            ->get('wallets');
-    }
-
-    /**
      * Get transactions for a particular wallet.
      * @see https://docs.lnpay.co/api/wallets/list-transactions
      * @return string List of wallet transactions

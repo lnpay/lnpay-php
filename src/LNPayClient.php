@@ -6,7 +6,7 @@ namespace LNPayClient;
  * Class LNPayClient
  * @package LNPayClient
  */
-class LNPayClient
+class LNPayClient extends Request
 {
     /**
      * CLient's version
@@ -130,5 +130,18 @@ class LNPayClient
     public static function getFullUrl(string $uri): string
     {
         return self::$endPointUrl . $uri;
+    }
+
+    /**
+     * List all the wallets
+     * @see https://docs.lnpay.co/api/wallets/list
+     * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function listAll(): string
+    {
+        return $this->setHeaders('X-LNPay-sdk', self::showVersion())
+            ->setHeaders('X-Api-Key', self::getPublicApiKey())
+            ->get('wallets');
     }
 }
