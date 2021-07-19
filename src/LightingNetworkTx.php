@@ -6,8 +6,8 @@ use LNPay\Request;
 
 /**
  * Class LightingNetworkTx
- * @see https://docs.lnpay.co
- * @package LNPay
+ * @see https://docs.lnpay.co/api/lntx
+ * @package LNPayClient
  */
 class LightingNetworkTx extends Request
 {
@@ -16,7 +16,7 @@ class LightingNetworkTx extends Request
      *
      * @param string $transactionID
      * @return string LnTx (Lightning Invoice)
-     * @see https://docs.lnpay.co/lntx/
+     * @see https://docs.lnpay.co/api/lntx/retrieve
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getInfo(string $transactionID): string

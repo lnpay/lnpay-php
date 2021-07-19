@@ -122,5 +122,4 @@ class Request
     {
         return $this->status;
     }
-
 }

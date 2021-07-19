@@ -4,7 +4,7 @@ namespace LNPayClient;
 
 /**
  * Class LNPayClient
- * @package LNPay
+ * @package LNPayClient
  */
 class LNPayClient
 {
@@ -38,6 +38,14 @@ class LNPayClient
      * @var mixed
      */
     private $wallet;
+    /**
+     * @var mixed
+     */
+    private $lnNode;
+    /**
+     * @var mixed
+     */
+    private $paywall;
 
     /**
      * LNPayClient constructor.

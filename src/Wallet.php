@@ -4,8 +4,8 @@ namespace LNPayClient;
 
 /**
  * Class Wallet
- * @see https://docs.lnpay.co
- * @package LNPay
+ * @see https://docs.lnpay.co/api/wallets
+ * @package LNPayClient
  */
 class Wallet extends Request
 {
@@ -23,8 +23,8 @@ class Wallet extends Request
     }
 
     /**
-     * Create a wallet
-     * @see https://docs.lnpay.co/wallet/create-wallet
+     * Create a new wallet and corresponding access keys
+     * @see https://docs.lnpay.co/api/wallets/create
      * @param array $params
      * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -41,11 +41,11 @@ class Wallet extends Request
 
     /**
      * Get the wallet object which includes current balance.
-     * @see https://docs.lnpay.co/wallet/get-balance
+     * @see https://docs.lnpay.co/api/wallets/retrieve
      * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getBalance(): string
+    public function getInfo(): string
     {
         return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
             ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
@@ -53,13 +53,25 @@ class Wallet extends Request
     }
 
     /**
-     * Get a list of wallet transactions that have been SETTLED. This includes only transactions that have an impact
-     * on wallet balance. These DO NOT include unsettled/unpaid invoices.
-     * @see https://docs.lnpay.co/wallet/get-transactions
+     * List all the wallets
+     * @see https://docs.lnpay.co/api/wallets/list
+     * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function listAll(): string
+    {
+        return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
+            ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
+            ->get('wallets');
+    }
+
+    /**
+     * Get transactions for a particular wallet.
+     * @see https://docs.lnpay.co/api/wallets/list-transactions
      * @return string List of wallet transactions
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getTransactions(): string
+    public function getWalletTransactions(): string
     {
         return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
             ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
@@ -67,13 +79,26 @@ class Wallet extends Request
     }
 
     /**
-     * Generates an invoice for this wallet
-     * @see https://docs.lnpay.co/wallet/generate-invoice
+     * Get a list of all transactions across all wallets
+     * @see https://docs.lnpay.co/api/wallets/list-all-transactions
+     * @return string List of wallet all transactions
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getAllTransactions(): string
+    {
+        return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
+            ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
+            ->get('wallet/' . LNPayClient::getWalletAccessKey()."/transactions");
+    }
+
+    /**
+     * Creating an invoice returns the LNPay representation of a BOLT11 invoice - the LnTx object
+     * @see https://docs.lnpay.co/api/wallet-transactions/generate-invoice
      * @param array $params Array representing an invoice request. Example: `{'num_satoshis': 2,'memo': 'Tester'}`
      * @return string LnTx Object (https://docs.lnpay.co/lntx/)
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function createInvoice(array $params): string
+    public function generateInvoice(array $params): string
     {
         return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
             ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
@@ -85,7 +110,7 @@ class Wallet extends Request
 
     /**
      * Pay a LN invoice from the specified wallet.
-     * @see https://docs.lnpay.co/wallet/pay-invoice
+     * @see https://docs.lnpay.co/api/wallet-transactions/pay-invoice
      * @param array $params Array representing an invoice payment request. Example: `{'payment_request': 'ln....'}`
      * @return string Returns invoice payment information if successful or a specific error
      * directly from the Lightning Node.
@@ -103,18 +128,18 @@ class Wallet extends Request
 
     /**
      * Transfer satoshis from source wallet to destination wallet.
-     * @see https://docs.lnpay.co/wallet/transfers-between-wallets
+     * @see https://docs.lnpay.co/api/wallet-transactions/transfers
      * @param array $params Array representing a transfer request.
      * Example: `{'dest_wallet_id': 'w_XXX','num_satoshis': 1,'memo': 'Memo'}`
      * @return string Transfer execution information.
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function internalTransfer(array $params): string
+    public function transfer(array $params): string
     {
         return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
             ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
             ->post(
-                'wallet/' . LNPayClient::getWalletAccessKey()."/transfer",
+                'wallet/' . LNPayClient::getWalletAccessKey().'/transfer',
                 $params
             );
     }
@@ -122,12 +147,12 @@ class Wallet extends Request
     /**
      * Generate an LNURL-withdraw link.
      * Note: These LNURLs are ONE-TIME use. This is to prevent repeated access to the wallet.
-     * @see https://docs.lnpay.co/wallet/lnurl-withdraw
-     * @param array $params Array representing a lnurl withdraw request. Example: `{'num_satoshis': 1,'memo': 'SatsBack'}`
+     * @see https://docs.lnpay.co/api/lnurl-withdraw/disposable-lnurl-withdraw
+     * @param array $params Array representing a lnurl withdraw request. Example:`{'num_satoshis': 1,'memo': 'SatsBack'}`
      * @return string Generated lnurl object.
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getLnUrl(array $params): string
+    public function disposableLnUrlWithdraw(array $params): string
     {
         return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
             ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
@@ -135,5 +160,45 @@ class Wallet extends Request
                 'wallet/' . LNPayClient::getWalletAccessKey()."/lnurl/withdraw",
                 $params
             );
+    }
+
+    /**
+     * Static LNURL-withdraw provides an LNURL tied to a wallet that will always be active.
+     * This will allow direct withdraw access to the wallet at all times.
+     * @see https://docs.lnpay.co/api/lnurl-withdraw/permanent-lnurl-withdraw
+     * @param array $params
+     * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function permanentLnUrlWithdraw(array $params): string
+    {
+        return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
+            ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
+            ->post(
+                'wallet/' . LNPayClient::getWalletAccessKey()."/lnurl/withdraw-static",
+                $params
+            );
+    }
+
+    /**
+     * Initiate a keysend payment from your wallet to a destination pubkey
+     * @see https://docs.lnpay.co/api/wallet-transactions/keysend
+     * @param array $params
+     * @param bool $makeAsynchronousRequest
+     * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function keysend(array $params, bool $makeAsynchronousRequest = false): string
+    {
+        $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
+            ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey());
+
+        if ($makeAsynchronousRequest) {
+            $this->setHeaders('X-LNPAY-ASYNC', 1);
+        }
+        return $this->post(
+            'wallet/' . LNPayClient::getWalletAccessKey().'/keysend',
+            $params
+        );
     }
 }
