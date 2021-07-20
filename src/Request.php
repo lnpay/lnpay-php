@@ -4,8 +4,6 @@ namespace LNPayClient;
 
 use GuzzleHttp\Client;
 
-use function PHPUnit\Framework\throwException;
-
 /**
  * Class Request
  * @package LNPayClient
@@ -90,6 +88,7 @@ class Request
     /**
      * Get HTTP headers
      * @return array headers
+     * @throws \Exception
      */
     public function getHeaders(): array
     {

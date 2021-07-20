@@ -53,32 +53,6 @@ class Wallet extends Request
     }
 
     /**
-     * Get transactions for a particular wallet.
-     * @see https://docs.lnpay.co/api/wallets/list-transactions
-     * @return string List of wallet transactions
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getWalletTransactions(): string
-    {
-        return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
-            ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
-            ->get('wallet/' . LNPayClient::getWalletAccessKey()."/transactions");
-    }
-
-    /**
-     * Get a list of all transactions across all wallets
-     * @see https://docs.lnpay.co/api/wallets/list-all-transactions
-     * @return string List of wallet all transactions
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getAllTransactions(): string
-    {
-        return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
-            ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
-            ->get('wallet/' . LNPayClient::getWalletAccessKey()."/transactions");
-    }
-
-    /**
      * Creating an invoice returns the LNPay representation of a BOLT11 invoice - the LnTx object
      * @see https://docs.lnpay.co/api/wallet-transactions/generate-invoice
      * @param array $params Array representing an invoice request. Example: `{'num_satoshis': 2,'memo': 'Tester'}`
@@ -90,7 +64,7 @@ class Wallet extends Request
         return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
             ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
             ->post(
-                'wallet/' . LNPayClient::getWalletAccessKey()."/invoice",
+                'wallet/' . LNPayClient::getWalletAccessKey() . '/invoice',
                 $params
             );
     }
@@ -108,7 +82,7 @@ class Wallet extends Request
         return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
             ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
             ->post(
-                'wallet/' . LNPayClient::getWalletAccessKey()."/withdraw",
+                'wallet/' . LNPayClient::getWalletAccessKey() . '/withdraw',
                 $params
             );
     }
@@ -126,7 +100,7 @@ class Wallet extends Request
         return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
             ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
             ->post(
-                'wallet/' . LNPayClient::getWalletAccessKey().'/transfer',
+                'wallet/' . LNPayClient::getWalletAccessKey() . '/transfer',
                 $params
             );
     }
@@ -144,7 +118,7 @@ class Wallet extends Request
         return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
             ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
             ->post(
-                'wallet/' . LNPayClient::getWalletAccessKey()."/lnurl/withdraw",
+                'wallet/' . LNPayClient::getWalletAccessKey() . '/lnurl/withdraw',
                 $params
             );
     }
@@ -162,7 +136,7 @@ class Wallet extends Request
         return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
             ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
             ->post(
-                'wallet/' . LNPayClient::getWalletAccessKey()."/lnurl/withdraw-static",
+                'wallet/' . LNPayClient::getWalletAccessKey() . '/lnurl/withdraw-static',
                 $params
             );
     }
@@ -184,7 +158,7 @@ class Wallet extends Request
             $this->setHeaders('X-LNPAY-ASYNC', 1);
         }
         return $this->post(
-            'wallet/' . LNPayClient::getWalletAccessKey().'/keysend',
+            'wallet/' . LNPayClient::getWalletAccessKey() . '/keysend',
             $params
         );
     }

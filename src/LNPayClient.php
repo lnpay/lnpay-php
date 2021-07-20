@@ -31,21 +31,26 @@ class LNPayClient extends Request
      */
     protected static $publicApiKey;
     /**
-     * @var mixed
+     * @var LightingNetworkTx
      */
     private $lightingNetworkTx;
     /**
-     * @var mixed
+     * @var Wallet
      */
     private $wallet;
     /**
-     * @var mixed
+     * @var LnNode
      */
     private $lnNode;
     /**
-     * @var mixed
+     * @var Paywall
      */
     private $paywall;
+
+    /**
+     * @var WalletTransaction
+     */
+    private $walletTransaction;
 
     /**
      * LNPayClient constructor.

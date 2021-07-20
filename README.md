@@ -112,7 +112,7 @@ print_r($response);
 
 ### Get Wallet Transactions
 ```
-$response = $lnPayClient->wallet->getWalletTransactions();
+$response = $lnPayClient->walletTransaction->getWalletTransactions();
 print_r($response);
 ```
 

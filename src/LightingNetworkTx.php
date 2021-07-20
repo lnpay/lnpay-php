@@ -2,8 +2,6 @@
 
 namespace LNPayClient;
 
-use LNPay\Request;
-
 /**
  * Class LightingNetworkTx
  * @see https://docs.lnpay.co/api/lntx
