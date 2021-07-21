@@ -3,7 +3,8 @@
   "description": "LNPay PHP Client Library",
   "keywords": [
     "LNPay",
-    "Payment Processing",
+    "lightning network",
+    "bitcoin",
     "API",
     "client"
   ],
