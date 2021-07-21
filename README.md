@@ -17,7 +17,7 @@ The Api follows the following practices:
 ## Installation via composer
 Run in console below command to download package to your project:
 ```
-composer lnpay/LNPayClient
+composer require lnpay/lnpay-php
 ```
 
 ## Installation Manually
@@ -28,8 +28,6 @@ require_once('/path/to/lnpay-php/init.php');
 
 ## Documentation
 The first alpha version of this SDK is mainly a wrapper for the [LNPay API](https://docs.lnpay.co/)
-
-Everything revolves around the wallet and Wallet Access Keys (WAK) which grant various levels of permission.
 
 ## Setup
 ```
@@ -42,8 +40,7 @@ use LNPay\LNPayClient;
 
 // Creating Client object
 $lnPayClient = new LNPayClient(
-        'sak_KEY',
-        'wak_KEY'
+        'sak_KEY'
     );
 
 ```
@@ -56,15 +53,14 @@ use LNPay\LNPayClient;
 
 // Creating Client object
 $lnPayClient = new LNPayClient(
-        'sak_KEY',
-        'wak_KEY'
+        'sak_KEY'
     );
 
 ```
 ```
 // Wallet Access Key setup if not added while LNPayClient object creationation.
 
-$lnPayClient->wallet->setWalletAccessKey('wak_KEY')
+$lnPayClient->wallet->setWalletAccessKey('wal_KEY')
 ```
 
 ## Usage
