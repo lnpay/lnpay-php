@@ -45,7 +45,7 @@ class WalletTransaction extends Request
     {
         return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
             ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
-            ->get('wallet/wallet-transactions');
+            ->get('wallet-transactions');
     }
 
 }
