@@ -14,7 +14,7 @@ class WalletTransaction extends Request
      * @param string $walletAccessKey Access key for a specific wallet.
      * @return $this
      */
-    public function setWalletAccessKey(string $walletAccessKey = ''): Wallet
+    public function setWalletAccessKey(string $walletAccessKey = ''): self
     {
         if (!empty($walletAccessKey)) {
             LNPayClient::setWalletAccessKey($walletAccessKey);
@@ -25,10 +25,10 @@ class WalletTransaction extends Request
     /**
      * Get transactions for a particular wallet.
      * @see https://docs.lnpay.co/api/wallets/list-transactions
-     * @return string List of wallet transactions
+     * @return mixed - List of wallet transactions
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getWalletTransactions(): string
+    public function getWalletTransactions()
     {
         return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
             ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
@@ -38,10 +38,10 @@ class WalletTransaction extends Request
     /**
      * Get a list of all transactions across all wallets
      * @see https://docs.lnpay.co/api/wallets/list-all-transactions
-     * @return string List of wallet all transactions
+     * @return mixed - List of wallet all transactions
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getAllTransactions(): string
+    public function getAllTransactions()
     {
         return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
             ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
