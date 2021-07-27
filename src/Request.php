@@ -26,10 +26,10 @@ class Request
      * @param string $uri
      * @param array $query
      * @param float $timeOut
-     * @return string
+     * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    protected function get(string $uri, array $query = [], float $timeOut = 2.0): string
+    protected function get(string $uri, array $query = [], float $timeOut = 2.0)
     {
         $client = new Client([
             'base_uri' => LNPayClient::getEndPointUrl(),
@@ -42,15 +42,17 @@ class Request
             $options['query'] = $query;
         }
 
+        $jsonString = "";
         try {
             $request = $client->request('GET', $uri, $options);
+            $jsonString = $request->getBody()->getContents();
             $this->status = $request->getStatusCode();
         } catch (\GuzzleHttp\Exception\ConnectException $e) {
             // This is will catch all connection timeouts
-            return 'Connection timeout';
+            $this->status = 'Connection timeout';
         }
 
-        return $request->getBody()->getContents();
+        return json_decode($jsonString, false);
     }
 
     /**
@@ -58,10 +60,10 @@ class Request
      * @param string $uri
      * @param array $params
      * @param float $timeOut
-     * @return string
+     * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    protected function post(string $uri, array $params = [], float $timeOut = 2.0): string
+    protected function post(string $uri, array $params = [], float $timeOut = 2.0)
     {
         $client = new Client([
             'base_uri' => LNPayClient::getFullUrl($uri),
@@ -74,15 +76,17 @@ class Request
             $options['form_params'] = $params;
         }
 
+        $jsonString = "";
         try {
             $request = $client->request('POST', $uri, $options);
+            $jsonString = $request->getBody()->getContents();
             $this->status = $request->getStatusCode();
         } catch (\GuzzleHttp\Exception\ConnectException $e) {
             // This is will catch all connection timeouts
-            return 'Connection timeout';
+            $this->status = 'Connection timeout';
         }
 
-        return $request->getBody()->getContents();
+        return json_decode($jsonString, false);
     }
 
     /**

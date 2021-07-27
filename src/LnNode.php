@@ -19,10 +19,10 @@ class LnNode extends Request
      * Probe a route to see the fee and if the destination pubkey is reachable
      * @param string $pubKey
      * @param float $amount
-     * @return string
+     * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getQueryRoutes(string $pubKey, float $amount): string
+    public function getQueryRoutes(string $pubKey, float $amount)
     {
         return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
             ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
@@ -38,10 +38,10 @@ class LnNode extends Request
     /**
      * Decode an invoice and get route hints. Uses LNPay.co node
      * @param string $paymentRequest
-     * @return string
+     * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function decodeInvoice(string $paymentRequest): string
+    public function decodeInvoice(string $paymentRequest)
     {
         return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
             ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
