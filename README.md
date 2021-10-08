@@ -118,5 +118,5 @@ $response = $lnPayClient->lightingNetworkTx->getInfo('lntx_id');
 print_r($response);
 ```
 
-See this [example files]().
+See this [example files](examples).
 
