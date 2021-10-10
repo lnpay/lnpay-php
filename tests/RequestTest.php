@@ -23,7 +23,7 @@ class RequestTest extends TestCase
     {
         parent::setUp();
         $lnPayClient = new LNPayClient(
-            'sak_<KEY>',
+            $_SERVER['PUBLIC_API_KEY'],
         );
 
         $this->request = new Request();

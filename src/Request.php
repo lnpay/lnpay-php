@@ -66,7 +66,7 @@ class Request
     protected function post(string $uri, array $params = [], float $timeOut = 2.0)
     {
         $client = new Client([
-            'base_uri' => LNPayClient::getFullUrl($uri),
+            'base_uri' => LNPayClient::getEndPointUrl(),
             'timeout' => $timeOut,
         ]);
 

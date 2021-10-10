@@ -36,7 +36,7 @@ The first alpha version of this SDK is mainly a wrapper for the [LNPay API](http
 // Load the autoload file from composer's vendor directory
 require '../vendor/autoload.php';
 
-use LNPay\LNPayClient;
+use LNPayClient\LNPayClient;
 
 // Creating Client object
 $lnPayClient = new LNPayClient(
@@ -49,7 +49,7 @@ $lnPayClient = new LNPayClient(
 
 require 'init.php';
 
-use LNPay\LNPayClient;
+use LNPayClient\LNPayClient;
 
 // Creating Client object
 $lnPayClient = new LNPayClient(
@@ -60,7 +60,7 @@ $lnPayClient = new LNPayClient(
 ```
 // Wallet Access Key setup if not added while LNPayClient object creationation.
 
-$lnPayClient->wallet->setWalletAccessKey('wal_KEY')
+$lnPayClient->wallet->setWalletAccessKey('wal_KEY');
 ```
 
 ## Usage
@@ -92,7 +92,7 @@ print_r($response);
 ### Pay Invoice
 ```
 $response = $lnPayClient->wallet->payInvoice(array(
-        "payment_request" => "2"
+        "payment_request" => "lnXXXX"
     ));
 print_r($response);
 ```
@@ -118,5 +118,5 @@ $response = $lnPayClient->lightingNetworkTx->getInfo('lntx_id');
 print_r($response);
 ```
 
-See this [example files](examples).
+See the [example files](examples).
 
