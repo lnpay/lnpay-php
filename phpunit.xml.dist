@@ -15,7 +15,7 @@
     <php>
         <!-- copy this file to phpunit.xml and replace with your API key to run tests -->
         <!--
-        <server name="PUBLIC_API_KEY" value="sak_XXXX" />
+        <server name="PUBLIC_API_KEY" value="sak_KEY" />
         -->
     </php>
 
