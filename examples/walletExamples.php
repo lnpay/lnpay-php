@@ -57,7 +57,7 @@ print_r($response);
  **/
 $response = $lnPayClient->wallet->internalTransfer([
         'num_satoshis' => 1,
-        'Memo' => 'SateBack',
+        'memo' => 'SateBack',
     ]);
 print_r($response);
 
@@ -70,7 +70,7 @@ print_r($response);
  **/
 $response = $lnPayClient->wallet->disposableLnUrlWithdraw([
         'num_satoshis' => 1,
-        'Memo' => 'SateBack',
+        'memo' => 'SateBack',
     ]);
 print_r($response);
 
@@ -84,6 +84,6 @@ print_r($response);
  **/
 $response = $lnPayClient->wallet->permanentLnUrlWithdraw([
     'num_satoshis' => 1,
-    'Memo' => 'SateBack',
+    'memo' => 'SateBack',
 ]);
 print_r($response);
