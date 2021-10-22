@@ -112,9 +112,21 @@ $response = $lnPayClient->walletTransaction->getWalletTransactions();
 print_r($response);
 ```
 
-### Get LNURL
+### Get Transaction Info
 ```
 $response = $lnPayClient->lightingNetworkTx->getInfo('lntx_id');
+print_r($response);
+```
+
+### Generate a disposable LNURL-withdraw link. 
+```
+$response = $lnPayClient->wallet->disposableLnUrlWithdraw(['num_satoshis'=> 1, 'memo'=> '1 sat over LNURL once']);
+print_r($response);
+```
+
+### Generate a permanent LNURL-withdraw link. 
+```
+$response = $lnPayClient->wallet->permanentLnUrlWithdraw(['num_satoshis'=> 1, 'memo'=> '1 sat over LNURL again and again']);
 print_r($response);
 ```
 
