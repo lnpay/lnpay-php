@@ -13,9 +13,9 @@ $lnPayClient = new LNPayClient(
  * Create a wallet
  * @see https://docs.lnpay.co/wallet/create-wallet
  **/
-$response = $lnPayClient->wallet->create(array(
+$response = $lnPayClient->wallet->create([
         'user_label' => 'My New Wallet'
-    ));
+    ]);
 print_r($response);
 
 /**
@@ -36,39 +36,54 @@ print_r($response);
  * Generates an invoice for this wallet
  * @see https://docs.lnpay.co/wallet/generate-invoice
  **/
-$response = $lnPayClient->wallet->createInvoice(array(
-        "num_satoshis" => "2",
-        "meno" => "Tester",
-    ));
+$response = $lnPayClient->wallet->createInvoice([
+        'num_satoshis' => '2',
+        'meno' => 'Tester',
+    ]);
 print_r($response);
 
 /**
  * Pay a LN invoice from the specified wallet.
  * @see https://docs.lnpay.co/wallet/pay-invoice
  **/
-$response = $lnPayClient->wallet->payInvoice(array(
-        "payment_request" => "2"
-    ));
+$response = $lnPayClient->wallet->payInvoice([
+        'payment_request' => '2'
+    ]);
 print_r($response);
 
 /**
  * Transfer satoshis from source wallet to destination wallet.
  * @see https://docs.lnpay.co/wallet/transfers-between-wallets
  **/
-$response = $lnPayClient->wallet->internalTransfer(array(
-        "num_satoshis" => 1,
-        "Memo" => "SateBack",
-    ));
+$response = $lnPayClient->wallet->internalTransfer([
+        'num_satoshis' => 1,
+        'memo' => 'SateBack',
+    ]);
 print_r($response);
 
 /**
- * Generate an LNURL-withdraw link.
- * @see https://docs.lnpay.co/wallet/lnurl-withdraw
+ * Generate a disposable LNURL-withdraw link.
+ *
+ * Important: use the Wallet LNURL Withdraw waklw_XXXX, i.e: $lnPayClient->wallet->setWalletAccessKey('waklw_XXXX');
+ *
+ * @see https://docs.lnpay.co/api/lnurl-withdraw/disposable-lnurl-withdraw
  **/
-$response = $lnPayClient->wallet->internalTransfer(array(
-        "num_satoshis" => 1,
-        "Memo" => "SateBack",
-    ));
+$response = $lnPayClient->wallet->disposableLnUrlWithdraw([
+        'num_satoshis' => 1,
+        'memo' => 'SateBack',
+    ]);
 print_r($response);
 
 
+/**
+ * Generate a permanent LNURL-withdraw link.
+ *
+ * Important: use the Wallet LNURL Withdraw waklw_XXXX, i.e: $lnPayClient->wallet->setWalletAccessKey('waklw_XXXX');
+ *
+ * @see https://docs.lnpay.co/api/lnurl-withdraw/permanent-lnurl-withdraw
+ **/
+$response = $lnPayClient->wallet->permanentLnUrlWithdraw([
+    'num_satoshis' => 1,
+    'memo' => 'SateBack',
+]);
+print_r($response);

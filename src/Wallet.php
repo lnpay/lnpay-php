@@ -117,7 +117,7 @@ class Wallet extends Request
     {
         return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
             ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
-            ->post(
+            ->get(
                 'wallet/' . LNPayClient::getWalletAccessKey() . '/lnurl/withdraw',
                 $params
             );
@@ -135,7 +135,7 @@ class Wallet extends Request
     {
         return $this->setHeaders('X-LNPay-sdk', LNPayClient::showVersion())
             ->setHeaders('X-Api-Key', LNPayClient::getPublicApiKey())
-            ->post(
+            ->get(
                 'wallet/' . LNPayClient::getWalletAccessKey() . '/lnurl/withdraw-static',
                 $params
             );
